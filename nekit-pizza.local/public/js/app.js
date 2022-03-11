@@ -2177,8 +2177,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     $route: function $route(to, from) {
-      console.log(to);
       this.current = to['name'];
+
+      if (to.name === 'watch') {
+        window.location.reload();
+      }
     },
     searchLable: function searchLable() {
       this.searchTips();
@@ -2496,6 +2499,14 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.getData();
     this.checkSub();
+  },
+  watch: {
+    $route: function $route(to, from) {
+      if (to.name === 'channel') {
+        this.id = to.params.id;
+        this.getData();
+      }
+    }
   },
   methods: {
     handleFileUploadImage: function handleFileUploadImage() {
@@ -2841,6 +2852,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getData();
+    $('title').text('DumboTube');
   },
   methods: {
     dateConv: function dateConv(date) {
@@ -3564,6 +3576,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Video",
@@ -3575,6 +3610,9 @@ __webpack_require__.r(__webpack_exports__);
       isSub: null,
       channel: []
     };
+  },
+  watch: {
+    $route: function $route(to, from) {}
   },
   mounted: function mounted() {
     var _this = this;
@@ -3702,6 +3740,7 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref4.data;
         _this4.video = data;
         _this4.channel = data['channel'];
+        $('title').text(data.name);
       });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/add-video-watch', data).then(function (_ref5) {
         var data = _ref5.data;
@@ -32737,7 +32776,7 @@ var render = function () {
                               _c("img", {
                                 attrs: {
                                   alt: "Avatar",
-                                  src: "user-photos/" + _vm.channel.image,
+                                  src: "../user-photos/" + _vm.channel.image,
                                 },
                               }),
                               _vm._v(
@@ -32854,7 +32893,7 @@ var render = function () {
                                 _c("img", {
                                   staticClass: "img-fluid",
                                   attrs: {
-                                    src: "user-photos/" + sub.channel.image,
+                                    src: "../user-photos/" + sub.channel.image,
                                     alt: "",
                                   },
                                 }),
@@ -32970,7 +33009,7 @@ var staticRenderFns = [
       [
         _c("img", {
           staticClass: "img-fluid",
-          attrs: { alt: "", src: "img/logo.png" },
+          attrs: { alt: "", src: "/img/logo.png" },
         }),
       ]
     )
@@ -33727,13 +33766,13 @@ var render = function () {
           _vm._v(" "),
           _c("img", {
             staticClass: "img-fluid",
-            attrs: { alt: "", src: "user-photos/" + _vm.channel.bg },
+            attrs: { alt: "", src: "../user-photos/" + _vm.channel.bg },
           }),
           _vm._v(" "),
           _c("div", { staticClass: "channel-profile" }, [
             _c("img", {
               staticClass: "channel-profile-img",
-              attrs: { alt: "", src: "user-photos/" + _vm.channel.image },
+              attrs: { alt: "", src: "../user-photos/" + _vm.channel.image },
             }),
             _vm._v(" "),
             _vm._m(1),
@@ -33873,7 +33912,7 @@ var render = function () {
                                     _c("img", {
                                       staticClass: "img-fluid",
                                       attrs: {
-                                        src: "user-photos/" + video.preview,
+                                        src: "../user-photos/" + video.preview,
                                         alt: "",
                                       },
                                     }),
@@ -36301,7 +36340,8 @@ var render = function () {
                 {
                   staticStyle: { width: "100%" },
                   attrs: {
-                    id: "videoplayer",
+                    id: "player",
+                    playsinline: "",
                     controls: "",
                     autoplay: "true",
                     loop: "true",
@@ -36625,39 +36665,106 @@ var render = function () {
                     "div",
                     { staticClass: "video-card video-card-list" },
                     [
-                      _c("div", { staticClass: "video-card-image" }, [
-                        _vm._m(2, true),
-                        _vm._v(" "),
-                        _c("a", { attrs: { href: "#" } }, [
-                          _c("img", {
-                            staticClass: "img-fluid",
-                            attrs: {
-                              src: "user-photos/" + video.preview,
-                              alt: "",
+                      _c(
+                        "div",
+                        { staticClass: "video-card-image" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "play-icon",
+                              attrs: {
+                                to: { name: "watch", params: { id: video.id } },
+                              },
                             },
-                          }),
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "time" }, [_vm._v("3:50")]),
-                      ]),
+                            [_c("i", { staticClass: "fas fa-play-circle" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              attrs: {
+                                to: { name: "watch", params: { id: video.id } },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                staticClass: "img-fluid",
+                                attrs: {
+                                  src: "user-photos/" + video.preview,
+                                  alt: "",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "time" }, [_vm._v("3:50")]),
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c("div", { staticClass: "video-card-body" }, [
-                        _vm._m(3, true),
+                        _vm._m(2, true),
                         _vm._v(" "),
-                        _c("div", { staticClass: "video-title" }, [
-                          _c("a", { attrs: { href: "#" } }, [
-                            _vm._v(_vm._s(video.name)),
-                          ]),
-                        ]),
+                        _c(
+                          "div",
+                          { staticClass: "video-title" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                attrs: {
+                                  to: {
+                                    name: "watch",
+                                    params: { id: video.id },
+                                  },
+                                },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                            " +
+                                    _vm._s(video.name) +
+                                    "\n                                        "
+                                ),
+                              ]
+                            ),
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "video-page text-success" }, [
-                          _vm._v(
-                            "\n                                        " +
-                              _vm._s(video.channel.name) +
-                              "  "
-                          ),
-                          _vm._m(4, true),
-                        ]),
+                        _c(
+                          "div",
+                          { staticClass: "video-page text-success" },
+                          [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(video.channel.name) +
+                                "\n                                        "
+                            ),
+                            _c(
+                              "router-link",
+                              {
+                                attrs: {
+                                  to: {
+                                    name: "watch",
+                                    params: { id: video.id },
+                                  },
+                                  "data-placement": "top",
+                                  "data-toggle": "tooltip",
+                                  href: "#",
+                                  "data-original-title": "Verified",
+                                },
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "fas fa-check-circle text-success",
+                                }),
+                              ]
+                            ),
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
                         _c("div", { staticClass: "video-view" }, [
                           _vm._v(
@@ -36682,6 +36789,19 @@ var render = function () {
           ]),
         ]),
       ]),
+    ]),
+    _vm._v(" "),
+    _c("script", {
+      attrs: {
+        src: "https://cdn.plyr.io/3.6.12/plyr.js",
+        type: "application/javascript",
+      },
+    }),
+    _vm._v(" "),
+    _c("script", { attrs: { type: "application/javascript" } }, [
+      _vm._v(
+        '\n        document.addEventListener("DOMContentLoaded", function(event) {\n            let p = document.getElementById("player")\n            let int = setInterval(function(){\n                console.log(p.readyState)\n                const player = new Plyr(\'#player\')\n                if ( p.readyState === 4 ) {\n                    clearInterval(int)\n                }\n            },500)\n\n        })\n    '
+      ),
     ]),
   ])
 }
@@ -36758,14 +36878,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "play-icon", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-play-circle" }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "btn-group float-right right-action" }, [
       _c(
         "a",
@@ -36803,24 +36915,6 @@ var staticRenderFns = [
         ]),
       ]),
     ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        attrs: {
-          title: "",
-          "data-placement": "top",
-          "data-toggle": "tooltip",
-          href: "#",
-          "data-original-title": "Verified",
-        },
-      },
-      [_c("i", { staticClass: "fas fa-check-circle text-success" })]
-    )
   },
 ]
 render._withStripped = true
@@ -52531,7 +52625,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'upload',
     component: _views_Upload__WEBPACK_IMPORTED_MODULE_12__["default"]
   }, {
-    path: '/channel:id',
+    path: '/channel/:id',
     name: 'channel',
     props: true,
     component: _views_Channel__WEBPACK_IMPORTED_MODULE_7__["default"]

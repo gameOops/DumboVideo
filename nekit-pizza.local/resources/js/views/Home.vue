@@ -196,6 +196,7 @@ export default {
     },
     mounted() {
         this.getData();
+        $('title').text('DumboTube');
     },
     methods: {
         dateConv(date) {
@@ -258,7 +259,6 @@ export default {
         },
         getData()
         {
-
             axios.post('/api/get-all-videos')
                 .then(({data}) => {
                     this.videos = data;

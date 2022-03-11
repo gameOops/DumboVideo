@@ -20,6 +20,7 @@
         "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
+        "plyr": "^3.6.12",
         "swiper": "^7.4.1",
         "vue": "^2.6.14",
         "vue-cookies": "^1.7.4",

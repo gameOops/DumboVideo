@@ -4,6 +4,7 @@ import VueVideoPlayer from 'vue-video-player'
 
 import 'video.js/dist/video-js.css'
 
+
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 
@@ -48,7 +49,7 @@ const router = new VueRouter({
             component: Upload
         },
         {
-            path: '/channel:id',
+            path: '/channel/:id',
             name: 'channel',
             props: true,
             component: Channel

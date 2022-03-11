@@ -9,7 +9,7 @@
                 <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0" id="sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button> &nbsp;&nbsp;
-                <a class="navbar-brand mr-1" href="index.html"><img class="img-fluid" alt="" src="img/logo.png"></a>
+                <a class="navbar-brand mr-1" href="index.html"><img class="img-fluid" alt="" src="/img/logo.png"></a>
                 <!-- Navbar Search -->
                 <form class="d-none d-md-inline-block form-inline ml-auto mr-auto my-2 my-md-0 osahan-navbar-search">
                     <div class="input-group">
@@ -69,7 +69,7 @@
                     </li>
                     <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
                         <a class="nav-link dropdown-toggle user-dropdown-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img alt="Avatar" :src="'user-photos/'+channel.image">
+                            <img alt="Avatar" :src="'../user-photos/'+channel.image">
                             {{user.name}}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -155,7 +155,7 @@
                         <ul>
                             <li v-for="sub in subs" v-if="subs">
                                 <router-link :to="{name:'channel',params:{'id':sub.channel_id}}">
-                                    <img class="img-fluid" :src="'user-photos/'+sub.channel.image" alt="" >{{sub.channel.name}}
+                                    <img class="img-fluid" :src="'../user-photos/'+sub.channel.image" alt="" >{{sub.channel.name}}
                                 </router-link>
                             </li>
                         </ul>
@@ -268,8 +268,11 @@ export default {
     },
     watch:{
         $route (to, from){
-            console.log(to)
             this.current = to['name']
+            if(to.name === 'watch')
+            {
+                window.location.reload();
+            }
         },
         searchLable: function() {
             this.searchTips()

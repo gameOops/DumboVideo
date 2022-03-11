@@ -5,7 +5,7 @@
                 <div class="col-md-8">
                     <div class="single-video-left">
                         <div class="single-video">
-                            <video id="videoplayer" style="width: 100%" controls autoplay="true" loop="true" >
+                            <video id="player" playsinline style="width: 100%" controls autoplay="true" loop="true" >
                                 <source :src="'user-videos/'+video.src" type="video/mp4" />
                             </video>
                         </div>
@@ -87,8 +87,12 @@
                             <div class="col-md-12">
                                 <div class="video-card video-card-list" v-for="video in videos">
                                     <div class="video-card-image">
-                                        <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                                        <a href="#"><img class="img-fluid" :src="'user-photos/'+video.preview" alt=""></a>
+                                        <router-link class="play-icon" :to="{name:'watch',params:{'id':video.id}}">
+                                            <i class="fas fa-play-circle"></i>
+                                        </router-link>
+                                        <router-link :to="{name:'watch',params:{'id':video.id}}">
+                                            <img class="img-fluid" :src="'user-photos/'+video.preview" alt="">
+                                        </router-link>
                                         <div class="time">3:50</div>
                                     </div>
                                     <div class="video-card-body">
@@ -103,10 +107,15 @@
                                             </div>
                                         </div>
                                         <div class="video-title">
-                                            <a href="#">{{video.name}}</a>
+                                            <router-link :to="{name:'watch',params:{'id':video.id}}">
+                                                {{video.name}}
+                                            </router-link>
                                         </div>
                                         <div class="video-page text-success">
-                                            {{video.channel.name}}  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
+                                            {{video.channel.name}}
+                                            <router-link :to="{name:'watch',params:{'id':video.id}}" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified">
+                                                <i class="fas fa-check-circle text-success"></i>
+                                            </router-link>
                                         </div>
                                         <div class="video-view">
                                             {{video.views}} views &nbsp;<i class="fas fa-calendar-alt"></i> {{dateConv(video.created_at)}}
@@ -120,6 +129,20 @@
                 </div>
             </div>
         </div>
+        <script src="https://cdn.plyr.io/3.6.12/plyr.js" type="application/javascript"></script>
+        <script  type="application/javascript">
+            document.addEventListener("DOMContentLoaded", function(event) {
+                let p = document.getElementById("player")
+                let int = setInterval(function(){
+                    console.log(p.readyState)
+                    const player = new Plyr('#player')
+                    if ( p.readyState === 4 ) {
+                        clearInterval(int)
+                    }
+                },500)
+
+            })
+        </script>
     </div>
 </template>
 
@@ -138,6 +161,11 @@ export default {
             channel:[]
         }
     },
+    watch: {
+        $route (to, from){
+
+        },
+    },
     mounted() {
         this.getData();
         this.checkSub();
@@ -146,6 +174,7 @@ export default {
                 this.videos = data;
 
             })
+
         setTimeout(function(){
             //document.getElementById('videoplayer').play()
         },1000)
@@ -249,6 +278,7 @@ export default {
                 .then(({data}) => {
                     this.video = data;
                     this.channel = data['channel']
+                    $('title').text(data.name);
                 })
             axios.post('/api/add-video-watch',data)
                 .then(({data}) => {
