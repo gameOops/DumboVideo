@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c35dabe9-3f3d-4ecb-a6a5-29f523e562b9" name="dsdfdf" url="http://bookhu00.ftp.tools">
+        <fileTransfer host="bookhu00.ftp.tools" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="10528808-30b0-4c4b-8511-362d05afa827" name="sdsdsdsd" url="http://bookhu00.ftp.tools ">
+        <fileTransfer host="bookhu00.ftp.tools " port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="146328a6-ed1f-4762-a2e8-15d9ea558b17" name="Streaming">
+        <fileTransfer accessType="SFTP" host="87.249.44.235" port="22" sshConfigId="a63029cf-6a53-4f70-bdd4-419ca303566f" sshConfig="root@87.249.44.235:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
