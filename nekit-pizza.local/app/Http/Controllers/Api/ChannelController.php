@@ -18,9 +18,9 @@ class ChannelController extends Controller
         $this->channelService = $channelService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->channelService->index();
+        return $this->channelService->index($request['limit']);
     }
 
     public function get(Request $request)

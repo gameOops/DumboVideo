@@ -36,13 +36,13 @@
                                 <button v-if="isSub" class="btn btn-light" @click="sendSub" type="button">Вы подписаны</button>
                                 <button  v-else class="btn btn-danger" @click="sendSub" type="button">Subscribe <strong>1.4M</strong></button>
                                 <button class="btn btn btn-outline-danger" type="button"><i class="fas fa-bell"></i></button></div>
-                            <img class="img-fluid" :src="'user-photos/'+video.channel.image" alt="">
+                            <img class="img-fluid" :src="'user-photos/'+channel.image" alt="">
                             <p>
-                                <router-link :to="{name:'channel', params:{id:video.channel.id}}">
-                                    <strong>{{video.channel.name}}</strong>
+                                <router-link :to="{name:'channel', params:{id:channel.id}}">
+                                    <strong>{{channel.name}}</strong>
                                 </router-link>
 
-                                <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified" v-if="video.channel.verify === '1'">
+                                <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified" v-if="channel.verify === '1'">
                                     <i class="fas fa-check-circle text-success"></i>
                                 </span>
                             </p>
@@ -66,8 +66,8 @@
                             <div class="col-md-12">
                                 <div class="adblock">
                                     <div class="img">
-                                        Google AdSense<br>
-                                        336 x 280
+                                        <img src="user-photos/Новый проект (1).jpg" style="width:100%" alt="">
+
                                     </div>
                                 </div>
                                 <div class="main-title">
@@ -135,6 +135,7 @@ export default {
             video:[],
             videos:[],
             isSub:null,
+            channel:[]
         }
     },
     mounted() {
@@ -143,9 +144,10 @@ export default {
         axios.post('/api/get-all-videos')
             .then(({data}) => {
                 this.videos = data;
+
             })
         setTimeout(function(){
-            document.getElementById('videoplayer').play()
+            //document.getElementById('videoplayer').play()
         },1000)
 
     },
@@ -246,6 +248,7 @@ export default {
             axios.post('/api/get-video',data)
                 .then(({data}) => {
                     this.video = data;
+                    this.channel = data['channel']
                 })
             axios.post('/api/add-video-watch',data)
                 .then(({data}) => {

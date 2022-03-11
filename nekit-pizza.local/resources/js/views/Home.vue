@@ -14,7 +14,7 @@
                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
                             </div>
                         </div>
-                        <h6>Channels Categories</h6>
+                        <h6>Категории</h6>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -92,7 +92,7 @@
                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
                             </div>
                         </div>
-                        <h6>Featured Videos</h6>
+                        <h6>Все видео</h6>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3" v-for="video in videos">
@@ -148,7 +148,7 @@
                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
                             </div>
                         </div>
-                        <h6>Popular Channels</h6>
+                        <h6>Популярные каналы</h6>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3" v-for="channel in channels">
@@ -258,11 +258,14 @@ export default {
         },
         getData()
         {
+
             axios.post('/api/get-all-videos')
                 .then(({data}) => {
                     this.videos = data;
                 })
-            axios.post('/api/get-all-channels')
+            axios.post('/api/get-all-channels', {
+                'limit':'4'
+            })
                 .then(({data}) => {
                     this.channels = data;
                 })

@@ -7,9 +7,15 @@ use App\Chanel;
 
 class ChannelService
 {
-    public function index()
+    public function index($limit)
     {
-        return Chanel::withCount('subs')->get();
+        if($limit > 0)
+        {
+            return Chanel::withCount('subs')->limit($limit)->get();
+        } else {
+            return Chanel::withCount('subs')->get();
+        }
+
     }
 
     public function get($id)

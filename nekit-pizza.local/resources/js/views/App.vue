@@ -13,7 +13,14 @@
                 <!-- Navbar Search -->
                 <form class="d-none d-md-inline-block form-inline ml-auto mr-auto my-2 my-md-0 osahan-navbar-search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
+                        <input style="color:white" v-model="searchLable" type="text" class="form-control" placeholder="Поиск...">
+                        <div class="search_tips" v-if="searchLable">
+                            <ul>
+                                <router-link v-for="tip in tips" :to="{name:'watch',params:{'id':tip.id}}" style="color:black">
+                                    <li  v-html="setBold(tip.name)"></li>
+                                </router-link>
+                            </ul>
+                        </div>
                         <div class="input-group-append">
                             <button class="btn btn-light" type="button">
                                 <i class="fas fa-search"></i>
@@ -62,11 +69,11 @@
                     </li>
                     <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
                         <a class="nav-link dropdown-toggle user-dropdown-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img alt="Avatar" :src="'user-photos/'+user.channel.image">
+                            <img alt="Avatar" :src="'user-photos/'+channel.image">
                             {{user.name}}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <router-link class="dropdown-item" :to="{name:'channel', params:{'id':user.channel.id}}">
+                            <router-link class="dropdown-item" :to="{name:'channel', params:{'id':channel.id}}">
                                 <i class="fas fa-fw fa-user-circle"></i> My Account
                             </router-link>
                             <a class="dropdown-item" href="subscriptions.html"><i class="fas fa-fw fa-video"></i> &nbsp; Subscriptions</a>
@@ -146,7 +153,7 @@
                     <li class="nav-item channel-sidebar-list">
                         <h6>Подписки</h6>
                         <ul>
-                            <li v-for="sub in subs">
+                            <li v-for="sub in subs" v-if="subs">
                                 <router-link :to="{name:'channel',params:{'id':sub.channel_id}}">
                                     <img class="img-fluid" :src="'user-photos/'+sub.channel.image" alt="" >{{sub.channel.name}}
                                 </router-link>
@@ -250,20 +257,37 @@ export default {
             current:this.$router.currentRoute['name'],
             user:[],
             subs:[],
-            token:$cookies.get('token')
+            token:$cookies.get('token'),
+            searchLable:null,
+            tips:[],
+            channel:[]
         }
     },
     mounted() {
-        this.getData()
         this.getUser()
     },
     watch:{
         $route (to, from){
             console.log(to)
             this.current = to['name']
+        },
+        searchLable: function() {
+            this.searchTips()
         }
     },
     methods: {
+        setBold(str)
+        {
+            return str.replace(this.searchLable, '<b>'+this.searchLable+'</b>')
+        },
+        searchTips() {
+            axios.post('/api/search',{
+                'request':this.searchLable
+            })
+                .then(({data}) => {
+                    this.tips = data
+                })
+        },
         logout() {
             $cookies.remove('token');
             window.location.href='/auth';
@@ -276,6 +300,7 @@ export default {
               axios.post('/api/user-data',data)
                   .then(({data}) => {
                       this.user = data;
+                      this.channel = data['channel']
                       let data2 = {
                           'id':data.channel.id
                       }
@@ -285,14 +310,31 @@ export default {
                           })
                   })
           }
-        },
-        getData()
-        {
-            axios.post('/api/brands')
-                .then(({data}) => {
-                    this.brands = data;
-                })
         }
     }
 }
 </script>
+
+<style>
+    .search_tips {
+        position: absolute;
+        top: 50px;
+        background-color: white;
+        color: black;
+        width: 100%;
+        padding: 10px;
+    }
+    .search_tips > ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .search_tips > ul > a > li {
+        font-size: 15px;
+        padding: 4px;
+    }
+    .search_tips > ul > a > li:hover {
+        background-color: #e5e5e5;
+        cursor: pointer;
+    }
+</style>
