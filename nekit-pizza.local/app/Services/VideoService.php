@@ -22,7 +22,7 @@ class VideoService
 
     public function get($id)
     {
-        return Video::with('channel')->where('id',$id)->first();
+        return Video::with('channel')->withCount('likes')->where('id',$id)->first();
     }
 
     public function watch($video_id)

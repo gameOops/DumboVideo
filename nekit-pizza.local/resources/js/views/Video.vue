@@ -9,26 +9,31 @@
                                 <source :src="'user-videos/'+video.src" type="video/mp4" />
                             </video>
                         </div>
-                        <div class="single-video-title box mb-3">
+                        <div class="single-video-title box mb-3" style="margin-top: 15px;border-bottom: 1px solid #424242;">
                             <h2><a href="#">{{video.name}}</a></h2>
-                            <div style="display: flex;">
-                                <p class="mb-0"><i class="fas fa-eye"></i> {{video.views}} views</p>
-                                <span style="display: flex; align-items: center; margin-left: 25px">
-                                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 20px;fill:white; height: 100%;"><g class="style-scope yt-icon"><path d="M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11H3v10h4h1h9.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z M7,20H4v-8h3V20z M19.98,13.17l-1.34,6 C18.54,19.65,18.03,20,17.43,20H8v-8.61l5.6-6.06C13.79,5.12,14.08,5,14.38,5c0.26,0,0.5,0.11,0.63,0.3 c0.07,0.1,0.15,0.26,0.09,0.47l-1.52,4.94L13.18,12h1.35h4.23c0.41,0,0.8,0.17,1.03,0.46C19.92,12.61,20.05,12.86,19.98,13.17z" class="style-scope yt-icon"></path></g></svg>
-                                    <span style="margin-left: 5px">0</span>
+                            <div style="display: flex;justify-content: space-between;padding-bottom: 10px;">
+                                <div>
+                                    <p class="mb-0" style="font-size: 15px;">{{video.views}} просмотров</p>
+                                </div>
+                               <div style="display: flex;" @click="setLike">
+                                   <span style="display: flex; align-items: center; margin-left: 25px">
+                                    <svg  viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 24px;fill:white; height: 100%;"><g class="style-scope yt-icon"><path d="M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11H3v10h4h1h9.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z M7,20H4v-8h3V20z M19.98,13.17l-1.34,6 C18.54,19.65,18.03,20,17.43,20H8v-8.61l5.6-6.06C13.79,5.12,14.08,5,14.38,5c0.26,0,0.5,0.11,0.63,0.3 c0.07,0.1,0.15,0.26,0.09,0.47l-1.52,4.94L13.18,12h1.35h4.23c0.41,0,0.8,0.17,1.03,0.46C19.92,12.61,20.05,12.86,19.98,13.17z" class="style-scope yt-icon"></path></g></svg>
+                                    <span style="margin-left: 5px;font-size: 15px">{{video.likes_count}}</span>
                                 </span>
-                                <span style="display: flex; align-items: center; margin-left: 10px">
-                                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 20px;fill:white; height: 100%;"><g class="style-scope yt-icon"><path d="M17,4h-1H6.57C5.5,4,4.59,4.67,4.38,5.61l-1.34,6C2.77,12.85,3.82,14,5.23,14h4.23l-1.52,4.94C7.62,19.97,8.46,21,9.62,21 c0.58,0,1.14-0.24,1.52-0.65L17,14h4V4H17z M10.4,19.67C10.21,19.88,9.92,20,9.62,20c-0.26,0-0.5-0.11-0.63-0.3 c-0.07-0.1-0.15-0.26-0.09-0.47l1.52-4.94l0.4-1.29H9.46H5.23c-0.41,0-0.8-0.17-1.03-0.46c-0.12-0.15-0.25-0.4-0.18-0.72l1.34-6 C5.46,5.35,5.97,5,6.57,5H16v8.61L10.4,19.67z M20,13h-3V5h3V13z" class="style-scope yt-icon"></path></g></svg>
-                                    <span style="margin-left: 5px;">0</span>
+                                   <span style="display: flex; align-items: center; margin-left: 10px">
+                                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 24px;fill:white; height: 100%;"><g class="style-scope yt-icon"><path d="M17,4h-1H6.57C5.5,4,4.59,4.67,4.38,5.61l-1.34,6C2.77,12.85,3.82,14,5.23,14h4.23l-1.52,4.94C7.62,19.97,8.46,21,9.62,21 c0.58,0,1.14-0.24,1.52-0.65L17,14h4V4H17z M10.4,19.67C10.21,19.88,9.92,20,9.62,20c-0.26,0-0.5-0.11-0.63-0.3 c-0.07-0.1-0.15-0.26-0.09-0.47l1.52-4.94l0.4-1.29H9.46H5.23c-0.41,0-0.8-0.17-1.03-0.46c-0.12-0.15-0.25-0.4-0.18-0.72l1.34-6 C5.46,5.35,5.97,5,6.57,5H16v8.61L10.4,19.67z M20,13h-3V5h3V13z" class="style-scope yt-icon"></path></g></svg>
+                                    <span style="margin-left: 5px;font-size: 15px">0</span>
                                 </span>
-                                <span style="display: flex; align-items: center; margin-left: 10px">
-                                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 20px;fill:white; height: 100%;"><g mirror-in-rtl="" class="style-scope yt-icon"><path d="M15,5.63L20.66,12L15,18.37V15v-1h-1c-3.96,0-7.14,1-9.75,3.09c1.84-4.07,5.11-6.4,9.89-7.1L15,9.86V9V5.63 M14,3v6 C6.22,10.13,3.11,15.33,2,21c2.78-3.97,6.44-6,12-6v6l8-9L14,3L14,3z" class="style-scope yt-icon"></path></g></svg>
-                                    <span style="margin-left: 5px;">поделиться</span>
+                                   <span style="display: flex; align-items: center; margin-left: 10px">
+                                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 24px;fill:white; height: 100%;"><g mirror-in-rtl="" class="style-scope yt-icon"><path d="M15,5.63L20.66,12L15,18.37V15v-1h-1c-3.96,0-7.14,1-9.75,3.09c1.84-4.07,5.11-6.4,9.89-7.1L15,9.86V9V5.63 M14,3v6 C6.22,10.13,3.11,15.33,2,21c2.78-3.97,6.44-6,12-6v6l8-9L14,3L14,3z" class="style-scope yt-icon"></path></g></svg>
+                                    <span style="margin-left: 5px;font-size: 15px">поделиться</span>
                                 </span>
-                                <span style="display: flex; align-items: center; margin-left: 10px">
-                                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 20px;fill:white; height: 100%;"><g class="style-scope yt-icon"><path d="M22,13h-4v4h-2v-4h-4v-2h4V7h2v4h4V13z M14,7H2v1h12V7z M2,12h8v-1H2V12z M2,16h8v-1H2V16z" class="style-scope yt-icon"></path></g></svg>
-                                    <span style="margin-left: 5px;">сохранить</span>
+                                   <span style="display: flex; align-items: center; margin-left: 10px">
+                                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 24px;fill:white; height: 100%;"><g class="style-scope yt-icon"><path d="M22,13h-4v4h-2v-4h-4v-2h4V7h2v4h4V13z M14,7H2v1h12V7z M2,12h8v-1H2V12z M2,16h8v-1H2V16z" class="style-scope yt-icon"></path></g></svg>
+                                    <span style="margin-left: 5px;font-size: 15px">сохранить</span>
                                 </span>
+                               </div>
+
                             </div>
                         </div>
                         <div class="single-video-author box mb-3">
@@ -36,17 +41,17 @@
                                 <button v-if="isSub" class="btn btn-light" @click="sendSub" type="button">Вы подписаны</button>
                                 <button  v-else class="btn btn-danger" @click="sendSub" type="button">Subscribe <strong>1.4M</strong></button>
                                 <button class="btn btn btn-outline-danger" type="button"><i class="fas fa-bell"></i></button></div>
-                            <img class="img-fluid" :src="'user-photos/'+channel.image" alt="">
+                                <img class="img-fluid" :src="'user-photos/'+channel.image" alt="">
                             <p>
-                                <router-link :to="{name:'channel', params:{id:channel.id}}">
+                                <router-link :to="{name:'channel', params:{id:channel.id}}" style="color: white;">
                                     <strong>{{channel.name}}</strong>
                                 </router-link>
 
                                 <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified" v-if="channel.verify === '1'">
-                                    <i class="fas fa-check-circle text-success"></i>
+                                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; fill:#aaaaaa; margin-left:1px;margin-bottom:2px;width: 14px; height: 14px;"><g class="style-scope yt-icon"><path d="M12,2C6.5,2,2,6.5,2,12c0,5.5,4.5,10,10,10s10-4.5,10-10C22,6.5,17.5,2,12,2z M9.8,17.3l-4.2-4.1L7,11.8l2.8,2.7L17,7.4 l1.4,1.4L9.8,17.3z" class="style-scope yt-icon"></path></g></svg>
                                 </span>
                             </p>
-                            <small>Published on {{video.created_at}}</small>
+                            <span>{{Object.keys(channel.subs).length}} подписчиков</span>
                         </div>
                         <div class="single-video-info-content box mb-3">
                             <h6>Category :</h6>
@@ -182,6 +187,19 @@ export default {
     },
 
     methods: {
+        setLike()
+        {
+            let datasub = {
+                'token':$cookies.get('token'),
+                'video_id':this.id
+            }
+            axios.post('/api/set-like ',datasub)
+                .then(({data}) => {
+                    console.log(data)
+                    this.getData();
+                })
+
+        },
         dateConv(date) {
             let currentDate = Date.parse(new Date());
             let days = (currentDate - Date.parse(date))/86400000;       //86400000 - ms в дне
@@ -290,5 +308,8 @@ export default {
 </script>
 
 <style scoped>
-
+    .box {
+        background: #1c1c1c00!important;
+        padding: 1px!important;
+    }
 </style>

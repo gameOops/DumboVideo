@@ -19,6 +19,7 @@ import Auth from "./views/Auth";
 import Signup from "./views/Signup";
 import Forget from "./views/Forget";
 import Upload from "./views/Upload";
+import Settings from "./views/Settings";
 
 const router = new VueRouter({
     mode: 'history',
@@ -47,6 +48,11 @@ const router = new VueRouter({
             path: '/upload',
             name: 'upload',
             component: Upload
+        },
+        {
+            path: '/settings',
+            name: 'settings',
+            component: Settings
         },
         {
             path: '/channel/:id',
