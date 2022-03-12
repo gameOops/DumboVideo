@@ -38,6 +38,7 @@ Route::namespace('Api')->group(function () {
     Route::post('/test', [\App\Http\Controllers\Api\UserController::class, 'test']);
 
     Route::post('/set-like', [\App\Http\Controllers\Api\Video\LikeController::class, 'index']);
+    Route::post('/get-user-likes', [\App\Http\Controllers\Api\Video\LikeController::class, 'index_likes']);
 
 });
 

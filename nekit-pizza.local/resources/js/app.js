@@ -20,6 +20,7 @@ import Signup from "./views/Signup";
 import Forget from "./views/Forget";
 import Upload from "./views/Upload";
 import Settings from "./views/Settings";
+import LikeList from "./views/LikeList";
 
 const router = new VueRouter({
     mode: 'history',
@@ -43,6 +44,11 @@ const router = new VueRouter({
             path: '/forget',
             name: 'forget',
             component: Forget
+        },
+        {
+            path: '/likes',
+            name: 'likes',
+            component: LikeList
         },
         {
             path: '/upload',

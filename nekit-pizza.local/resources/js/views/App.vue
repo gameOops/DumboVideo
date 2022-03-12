@@ -106,10 +106,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="video-page.html">
+                        <router-link class="nav-link" :to="{name:'likes'}">
                             <i class="fas fa-fw fa-video"></i>
-                            <span>Страница видео</span>
-                        </a>
+                            <span>Понравившиеся</span>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="upload-video.html">
@@ -162,7 +162,7 @@
                     </li>
                 </ul>
                 <div id="content-wrapper">
-                    <div class="container-fluid pb-0" v-if="current === 'home' || current === 'watch'">
+                    <div class="container-fluid pb-0" v-if="current === 'home' || current === 'watch' || current === 'likes'">
                         <div class="top-mobile-search">
                             <div class="row">
                                 <div class="col-md-12">
@@ -198,7 +198,7 @@
                     </div>
                     <!-- /.container-fluid -->
                     <!-- Sticky Footer -->
-                    <footer class="sticky-footer">
+                    <!--<footer class="sticky-footer">
                         <div class="container">
                             <div class="row no-gutters">
                                 <div class="col-lg-6 col-sm-6">
@@ -215,7 +215,7 @@
                                 </div>
                             </div>
                         </div>
-                    </footer>
+                    </footer>-->
                 </div>
                 <!-- /.content-wrapper -->
             </div>

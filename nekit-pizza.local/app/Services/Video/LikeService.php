@@ -35,4 +35,16 @@ class LikeService
             return $like;
         }
     }
+
+    public function index_likes($data)
+    {
+        $channel = $this->userInterface->__get_user_channel($data->token);
+
+        $data = Like::with('video')->where('user_id',$channel->id)->get();
+
+        return response()->json([
+           'status' => 'success',
+           'data' => $data
+        ]);
+    }
 }
